@@ -2,8 +2,11 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 void main() => runApp(MyApp());
 
@@ -151,11 +154,50 @@ class Home extends StatelessWidget {
             ),
           ),
           Html(
-            onLinkTap: (String indirizzo) {
-              print(indirizzo);
+            onLinkTap: (String indirizzo) async {
+              if (await canLaunch(indirizzo)) {
+                await launch(indirizzo);
+              }
             },
             data:
-                "Bringing you closer to the people and things you love. &#128151;<br/>For up-to-date COVID-19 information visit: <a href='http://www.instagram.com/coronavirus_info'>http://www.instagram.com/coronavirus_info</a>",
+                "Bringing you closer to the people and things you love. &#128151;<br/>For up-to-date COVID-19 information visit: <a href='https://www.instagram.com/coronavirus_info'>https://www.instagram.com/coronavirus_info</a>",
+          ),
+          Row(
+            children: [
+              Expanded(
+                flex: 8,
+                child: OutlinedButton(
+                  onPressed: () {},
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text("Segui già"),
+                      Icon(Icons.arrow_drop_down),
+                    ],
+                  ),
+                ),
+              ),
+              SizedBox(
+                width: 10.0,
+              ),
+              Expanded(
+                flex: 8,
+                child: OutlinedButton(
+                  onPressed: () {},
+                  child: Text("Messaggio"),
+                ),
+              ),
+              SizedBox(
+                width: 10.0,
+              ),
+              Expanded(
+                flex: 1,
+                child: OutlinedButton(
+                  onPressed: () {},
+                  child: Icon(Icons.arrow_drop_down),
+                ),
+              ),
+            ],
           ),
         ],
       ),
